@@ -31,15 +31,15 @@ namespace zxksglxtWeb.Exam
             ExamDesc = new Models.examDescription();
             ExamDesc.costTime = 120;
             ExamDesc.isPublished = 1;
-            ExamDesc.name = "测试";
+            ExamDesc.title = "测试";
             ExamDesc.passScore = 100;
             ExamDesc.id = 1;
-            ExamDesc.ExamList = new List<Models.Exam>();
+            ExamDesc.ExamList = new List<Models.exam>();
             int j = 0;
             for(int i = 0; i < 60; i++)
             {
                 j++;
-                ExamDesc.ExamList.Add(new Models.Exam
+                ExamDesc.ExamList.Add(new Models.exam
                 {
                     correctResult = "A",
                     resultC = "测试答案C",
@@ -58,7 +58,7 @@ namespace zxksglxtWeb.Exam
             for (int i = 0; i < 30; i++)
             {
                 j++;
-                ExamDesc.ExamList.Add(new Models.Exam
+                ExamDesc.ExamList.Add(new Models.exam
                 {
                     correctResult = "A,B,C",
                     resultC = "测试答案C",
