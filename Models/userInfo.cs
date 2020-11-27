@@ -12,6 +12,7 @@ namespace zxksglxtWeb.Models
         /// <summary>
         /// 账号
         /// </summary>
+        [Key]
         public string code { get; set; }
         /// <summary>
         /// 密码

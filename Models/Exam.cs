@@ -12,6 +12,7 @@ namespace zxksglxtWeb.Models
         /// <summary>
         /// 自增长主键
         /// </summary>
+        [Key(Identity = true)]
         public int id { get; set; }
         /// <summary>
         /// 试卷ID

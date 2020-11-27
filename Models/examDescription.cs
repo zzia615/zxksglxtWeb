@@ -11,6 +11,7 @@ namespace zxksglxtWeb.Models
         /// <summary>
         /// 自增长主键
         /// </summary>
+        [Key(Identity = true)]
         public int id { get; set; }
 
         /// <summary>
@@ -32,6 +33,7 @@ namespace zxksglxtWeb.Models
         /// <summary>
         /// 试题列表
         /// </summary>
+        [Ignore]
         public List<exam> ExamList { get; set; }
     }
     

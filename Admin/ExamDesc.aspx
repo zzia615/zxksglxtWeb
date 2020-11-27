@@ -90,20 +90,59 @@
             </script>
         </div>
     </div>
+    <script type="text/html" id="addForm">
+        <form class="layui-form" action="" style="padding:10px;">
+          <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">试卷</label>
+            <div class="layui-input-block">
+                  <input type="text" name="title" lay-verify="required" lay-reqtext="试卷是必填项，岂能为空？" autocomplete="off" placeholder="请输入试卷" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">时间限制</label>
+            <div class="layui-input-block">
+                  <input type="text" name="costTime" lay-verify="required" lay-reqtext="时间限制是必填项，岂能为空？" autocomplete="off" placeholder="请输入时间限制" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">及格分</label>
+            <div class="layui-input-block">
+                  <input type="text" name="passScore" lay-verify="required" lay-reqtext="及格分是必填项，岂能为空？" autocomplete="off" placeholder="请输入及格分" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">是否发布</label>
+            <div class="layui-input-block">
+                  <select name="isPublished" lay-verify="required" lay-reqtext="是否发布是必填项，岂能为空？" autocomplete="off" class="layui-input">
+                      <option value="">请选择</option>
+                      <option value="0">否</option>                      
+                      <option value="1">是</option>
+                  </select>
+            </div>
+          </div>
+            
+          <div class="layui-form-item">
+            <div class="layui-input-block">
+              <button type="submit" class="layui-btn" lay-submit="" lay-filter="btnSave" id="btnSave">保存</button>
+              <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+          </div>
+        </form>
+    </script>
     <script src="../layui/layui.js"></script>
     <script>
-        layui.use(["element", "tree", "layer", "table"], function () {
+        layui.use(["element", "tree", "layer", "table","form"], function () {
             var element = layui.element,
                 tree = layui.tree,
                 layer = layui.layer,
                 table = layui.table,
-                $ = layui.$;
+                $ = layui.$,
+                form = layui.form;
             var selectedExamDesc = {};
             getTree();
             function reloadTree(data_exam_desc) {
                 if (data_exam_desc.length <= 0) {
                     selectedExamDesc = {};
-                    return;
                 }
                 var pp = [];
                 pp.push({ title: "试题库", id: 0, spread: true, children: data_exam_desc });
@@ -145,18 +184,29 @@
                     }
                 });
 
-                
-                selectedExamDesc = data_exam_desc[0];
-                selectChanged(selectedExamDesc);
+                if (data_exam_desc.length <= 0) {
+                    tableIns.reload({
+						where:{
+							action: "getExam",
+							examDescription_id: 0
+						},page:{
+							curr:1
+						}
+					})
+					$("#exam_desc_title").html("");
+                }else{
+					selectedExamDesc = data_exam_desc[0];
+					selectChanged(selectedExamDesc);
+				}
             }
-
+			var tableIns;
             function selectChanged(data) {
                 if (data === undefined) {
                     return;
                 }
                 $("#exam_desc_title").html(data.title);
 
-                table.render({
+                tableIns = table.render({
                     elem: '#test'
                     , url: '/Admin/ExamDesc.aspx'
                     , toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
@@ -249,7 +299,9 @@
                         tmp.push(val2.id);
                     });
                 });
-                delExamDesc(tmp);
+				layer.confirm('真的删除数据么', function (index) {
+					delExamDesc(tmp);
+				});
             });
             
             $("#btnEdit").click(function () {
@@ -258,6 +310,55 @@
                     return;
                 }
             });
+
+            $("#btnAdd").click(function () {
+                layer.open({
+                    type: 1,
+                    area: ['700px', '400px'],
+					title:"新增",
+                    fixed: false, //不固定
+                    content: $("#addForm").html(),
+                    success: function () {
+                        form.render();
+                    }
+                });
+            });
+			form.on("submit(btnSave)",function(data){
+				var formData = data.field;
+				if(formData.id===undefined){
+					form.id = 0;
+				}
+				if(form.id<=0){
+					formData.action="addExamDesc";
+				}else{
+					formData.action="editExamDesc";
+				}
+                layer.load(0, {
+                    shade: [0.1, '#fff'] //0.1透明度的白色背景
+                });
+				$.ajax({
+                    data: formData,
+                    dataType: "json",
+                    type: "post",
+                    url: "/Admin/ExamDesc.aspx",
+                    success: function (res) {
+                        if (res.code === 0) {
+                            layer.closeAll();
+                            layer.msg("保存成功");
+							getTree();
+                        } else {
+                            layer.closeAll();
+                            layer.msg("保存失败，错误信息：" + res.msg);
+                        }
+                    },
+                    error: function (a, b, c) {
+                        layer.closeAll();
+                        layer.msg("发生异常，错误代码" + a.status + ",错误信息" + a.statusText);
+                    }
+                })
+
+                return false;
+			});
             //头工具栏事件
             table.on('toolbar(test)', function (obj) {
                 var checkStatus = table.checkStatus(obj.config.id);

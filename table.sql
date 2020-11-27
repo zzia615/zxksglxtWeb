@@ -1,39 +1,22 @@
-create database OA_OFFICE
+create database zxksglxtWeb
 go
-use OA_OFFICE
+use zxksglxtWeb
 go
---菜单表
-create table menuInfo
-(
-id nvarchar(50) not null primary key,         --菜单ID
-pid nvarchar(50) null,                        --父菜单ID
-title nvarchar(30) not null,                  --标题
-icon nvarchar(100) null,                      --图表class
-uri nvarchar(100) null,                       --网址
-seqNo int not null                            --排序号
-)
-go
---初始化菜单信息
-insert into menuInfo values('addressBook',null,N'通讯录','fas fa-address-book','AddressBook.aspx',10)
-insert into menuInfo values('jcsj',null,N'基础数据',null,null,30)
-insert into menuInfo values('sslwh','jcsj',N'宿舍楼维护',null,'sslwh.aspx',31)
-insert into menuInfo values('sswh','jcsj',N'宿舍维护',null,'sswh.aspx',32)
-insert into menuInfo values('sswh','jcsj',N'宿舍维护',null,'sswh.aspx',32)
-go
+
 --用户信息表
 create table userInfo
 (
-code nvarchar(20) not null,			          --账号
+code nvarchar(20) not null primary key,		  --账号
 password nvarchar(100) not null,	          --密码
 name nvarchar(20) not null,			          --姓名
 userType nvarchar(20) not null,		          --用户类别：系统管理员、学生、老师
 imageUrl nvarchar(200) null,                  --用户头像
-buildNo nvarchar(200) null,					  --宿舍楼
+sfzh nvarchar(18) NOT NULL,                   --身份证号
 phone nvarchar(20) null                       --联系电话
 )
 go
-insert into userInfo(code,password,name,userType)
-values('admin','123456','admin',N'系统管理员')
+insert into userInfo(code,password,name,userType,sfzh)
+values('admin','123456','admin',N'系统管理员','100000000000000000')
 go
 --ID表
 create table IdKey
@@ -42,21 +25,11 @@ create table IdKey
 	id int not null                           --id值
 )
 go
---角色表
-create table role
-(
-id int identity(1,1) not null primary key,    --角色编码
-name nvarchar(100) not null,                  --角色名
-rights nvarchar(2000) null                    --角色权限
-)
-go
-insert into role(name,rights)values(N'系统管理员',N'["bmwh","bxsh","bxsq","cwgl","jcsj","jswh","ksdk","lzsh","lzsq","rsgl","rzsh","rzsq","wjgx","wjsc","wjxz","addressBook","kqbk","kqbksh","kqgl","kqjl","ygqj","ygqjsh"]')
-go
 --试卷
 create table examDescription
 (
 id int identity(1,1) not null primary key,    --自增长主键
-title nvarchar(100) not null,                  --名称
+title nvarchar(100) not null,                 --名称
 costTime int not null,                        --时间限制
 passScore int not null,                       --及格分
 isPublished int not null,                     --是否已发布 0未发布 1已发布（只有已发布的试卷才能在线答题）

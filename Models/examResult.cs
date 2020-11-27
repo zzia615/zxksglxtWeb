@@ -10,6 +10,7 @@ namespace zxksglxtWeb.Models
         /// <summary>
         /// 自增长ID
         /// </summary>
+        [Key(Identity = true)]
         public int id { get; set; }
         /// <summary>
         /// 学生编号

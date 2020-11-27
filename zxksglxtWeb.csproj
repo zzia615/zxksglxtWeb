@@ -197,6 +197,14 @@
     <Compile Include="BasePage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="BLL\baseBLL.cs" />
+    <Compile Include="BLL\examBLL.cs" />
+    <Compile Include="BLL\examDescriptionBLL.cs" />
+    <Compile Include="DAL\baseDAL.cs" />
+    <Compile Include="DAL\examDAL.cs" />
+    <Compile Include="DAL\examDescriptionDAL.cs" />
+    <Compile Include="DAL\examResultDAL.cs" />
+    <Compile Include="DAL\examResultDetailDAL.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -229,9 +237,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\SqlUtil.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="BLL\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
