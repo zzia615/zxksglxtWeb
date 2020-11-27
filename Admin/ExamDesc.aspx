@@ -129,6 +129,51 @@
           </div>
         </form>
     </script>
+	<script type="text/html" id="editForm">
+        <form class="layui-form" action="" style="padding:10px;" lay-filter="editForm">
+		  <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">编码</label>
+            <div class="layui-input-block">
+                  <input type="text" name="id" lay-verify="required" lay-reqtext="编码是必填项，岂能为空？" autocomplete="off" placeholder="请输入编码" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">试卷</label>
+            <div class="layui-input-block">
+                  <input type="text" name="title" lay-verify="required" lay-reqtext="试卷是必填项，岂能为空？" autocomplete="off" placeholder="请输入试卷" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">时间限制</label>
+            <div class="layui-input-block">
+                  <input type="text" name="costTime" lay-verify="required" lay-reqtext="时间限制是必填项，岂能为空？" autocomplete="off" placeholder="请输入时间限制" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">及格分</label>
+            <div class="layui-input-block">
+                  <input type="text" name="passScore" lay-verify="required" lay-reqtext="及格分是必填项，岂能为空？" autocomplete="off" placeholder="请输入及格分" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">是否发布</label>
+            <div class="layui-input-block">
+                  <select name="isPublished" lay-verify="required" lay-reqtext="是否发布是必填项，岂能为空？" autocomplete="off" class="layui-input">
+                      <option value="">请选择</option>
+                      <option value="0">否</option>                      
+                      <option value="1">是</option>
+                  </select>
+            </div>
+          </div>
+            
+          <div class="layui-form-item">
+            <div class="layui-input-block">
+              <button type="submit" class="layui-btn" lay-submit="" lay-filter="btnSave" id="btnSave">保存</button>
+              <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+          </div>
+        </form>
+    </script>
     <script src="../layui/layui.js"></script>
     <script>
         layui.use(["element", "tree", "layer", "table","form"], function () {
@@ -309,6 +354,18 @@
                     layer.msg("没有要修改的记录");
                     return;
                 }
+				
+				layer.open({
+                    type: 1,
+                    area: ['700px', '400px'],
+					title:"新增",
+                    fixed: false, //不固定
+                    content: $("#editForm").html(),
+                    success: function () {
+                        form.render();
+						form.val("editForm",selectedExamDesc);
+                    }
+                });
             });
 
             $("#btnAdd").click(function () {

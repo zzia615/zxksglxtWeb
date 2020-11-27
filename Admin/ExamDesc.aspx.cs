@@ -35,7 +35,34 @@ namespace zxksglxtWeb.Admin
 
         private void EditExamDesc()
         {
-            throw new NotImplementedException();
+            var obj = new
+            {
+                code = 0,
+                msg = ""
+            };
+            try
+            {
+                Models.examDescription examDesc = new Models.examDescription
+                {
+                    costTime = Request.Form["costTime"].AsInt(),
+                    isPublished = Request.Form["isPublished"].AsInt(),
+                    passScore = Request.Form["passScore"].AsInt(),
+                    title = Request.Form["title"].AsString(),
+                    id = Request.Form["id"].AsInt(),
+                };
+
+                new BLL.examDescriptionBLL().Edit(examDesc);
+            }
+            catch (Exception ex)
+            {
+                obj = new
+                {
+                    code = 99,
+                    msg = ex.Message
+                };
+            }
+
+            ResponseJson(obj);
         }
 
         private void AddExamDesc()
