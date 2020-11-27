@@ -26,6 +26,15 @@ namespace zxksglxtWeb.Admin
                 case "delExamDesc":
                     DelExamDesc();
                     break;
+                case "addExam":
+                    AddExam();
+                    break;
+                case "editExam":
+                    EditExam();
+                    break;
+                case "delExam":
+                    DelExam();
+                    break;
                 case "getExam":
                     GetExam();
                     break;
@@ -33,6 +42,110 @@ namespace zxksglxtWeb.Admin
             }
         }
 
+        private void EditExam()
+        {
+            var obj = new
+            {
+                code = 0,
+                msg = ""
+            };
+            try
+            {
+                Models.exam exam = new Models.exam
+                {
+                    resultA = Request.Form["resultA"].AsString(),
+                    resultB = Request.Form["resultB"].AsString(),
+                    resultC = Request.Form["resultC"].AsString(),
+                    resultD = Request.Form["resultD"].AsString(),
+                    score = Request.Form["score"].AsInt(),
+                    type = Request.Form["type"].AsString(),
+                    correctResult = Request.Form["correctResult"].AsString(),
+                    examDescription_id = Request.Form["examDescription_id"].AsInt(),
+                    orderNo = Request.Form["orderNo"].AsInt(),
+                    title = Request.Form["title"].AsString(),
+                    id = Request.Form["id"].AsInt(),
+                };
+
+                new BLL.examBLL().Edit(exam);
+            }
+            catch (Exception ex)
+            {
+                obj = new
+                {
+                    code = 99,
+                    msg = ex.Message
+                };
+            }
+
+            ResponseJson(obj);
+        }
+
+        private void AddExam()
+        {
+            var obj = new
+            {
+                code = 0,
+                msg = ""
+            };
+            try
+            {
+                Models.exam exam = new Models.exam
+                {
+                    resultA = Request.Form["resultA"].AsString(),
+                    resultB = Request.Form["resultB"].AsString(),
+                    resultC = Request.Form["resultC"].AsString(),
+                    resultD = Request.Form["resultD"].AsString(),
+                    score = Request.Form["score"].AsInt(),
+                    type = Request.Form["type"].AsString(),
+                    correctResult = Request.Form["correctResult"].AsString(),
+                    examDescription_id = Request.Form["examDescription_id"].AsInt(),
+                    orderNo = Request.Form["orderNo"].AsInt(),
+                    title = Request.Form["title"].AsString(),
+                };
+
+                new BLL.examBLL().Insert(exam);
+            }
+            catch (Exception ex)
+            {
+                obj = new
+                {
+                    code = 99,
+                    msg = ex.Message
+                };
+            }
+
+            ResponseJson(obj);
+        }
+        private void DelExam()
+        {
+            var obj = new
+            {
+                code = 0,
+                msg = ""
+            };
+            try
+            {
+                int id = Request.Form["id"].AsInt();
+                var bll = new BLL.examBLL();
+                Models.exam exam = new Models.exam
+                {
+                    id = id
+                };
+                if (exam != null)
+                {
+                    bll.Delete(exam);
+                }
+            }
+            catch (Exception ex)
+            {
+                obj = new
+                {
+                    code = 99,
+                    msg = ex.ToString()
+                };
+            }
+            ResponseJson(obj);
+        }
         private void EditExamDesc()
         {
             var obj = new

@@ -28,51 +28,9 @@ namespace zxksglxtWeb.Exam
             //编码
             string scode = Request.QueryString["scode"];
 
-            ExamDesc = new Models.examDescription();
-            ExamDesc.costTime = 120;
-            ExamDesc.isPublished = 1;
-            ExamDesc.title = "测试";
-            ExamDesc.passScore = 100;
-            ExamDesc.id = 1;
-            ExamDesc.ExamList = new List<Models.exam>();
-            int j = 0;
-            for(int i = 0; i < 60; i++)
-            {
-                j++;
-                ExamDesc.ExamList.Add(new Models.exam
-                {
-                    correctResult = "A",
-                    resultC = "测试答案C",
-                    resultA = "测试答案A",
-                    resultB = "测试答案B",
-                    resultD = "测试答案D",
-                    examDescription_id = 1,
-                    id = j,
-                    score=1,
-                    title="测试题目",
-                    type="单选题",
-                    orderNo = j
-                });
-            }
-
-            for (int i = 0; i < 30; i++)
-            {
-                j++;
-                ExamDesc.ExamList.Add(new Models.exam
-                {
-                    correctResult = "A,B,C",
-                    resultC = "测试答案C",
-                    resultA = "测试答案A",
-                    resultB = "测试答案B",
-                    resultD = "测试答案D",
-                    examDescription_id = 1,
-                    id = j,
-                    score = 1,
-                    title = "测试题目",
-                    type = "多选题",
-                    orderNo = j
-                });
-            }
+            //Dictionary<string, object> dic = new Dictionary<string, object>();
+            //dic.Add("id", exam_des_id);
+            ExamDesc = new BLL.examDescriptionBLL().SingleQuery(new object[] { exam_des_id });
         }
 
         private void HandInExam()

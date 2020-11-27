@@ -49,7 +49,8 @@ namespace zxksglxtWeb.BLL
             {
                 sql += " AND " + whereClause;
             }
-            return BaseDAL.Query(sql, dic);
+            var dataList = BaseDAL.Query(sql, dic);
+            return dataList;
         }
         /// <summary>
         /// 查询单条

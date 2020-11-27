@@ -78,9 +78,8 @@
  
             <script type="text/html" id="toolbarDemo">
                 <div class="layui-btn-container">
-                <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
-                <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
-                <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+                <button class="layui-btn layui-btn-sm" lay-event="refreshExam">刷新</button>
+                <button class="layui-btn layui-btn-sm" lay-event="addExam">新增</button>
                 </div>
             </script>
  
@@ -131,7 +130,7 @@
     </script>
 	<script type="text/html" id="editForm">
         <form class="layui-form" action="" style="padding:10px;" lay-filter="editForm">
-		  <div class="layui-form-item layui-form-text">
+		  <div class="layui-form-item layui-form-text" style="display:none">
             <label class="layui-form-label">编码</label>
             <div class="layui-input-block">
                   <input type="text" name="id" lay-verify="required" lay-reqtext="编码是必填项，岂能为空？" autocomplete="off" placeholder="请输入编码" class="layui-input">
@@ -169,14 +168,168 @@
           <div class="layui-form-item">
             <div class="layui-input-block">
               <button type="submit" class="layui-btn" lay-submit="" lay-filter="btnSave" id="btnSave">保存</button>
+            </div>
+          </div>
+        </form>
+    </script>
+
+    
+    <script type="text/html" id="addExamForm">
+        <form class="layui-form" action="" style="padding:10px;">
+          <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">题目</label>
+            <div class="layui-input-block">
+                  <input type="text" name="title" lay-verify="required" lay-reqtext="题目是必填项，岂能为空？" autocomplete="off" placeholder="请输入题目" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-form-item layui-form-text">
+            <div class="layui-inline">
+            <label class="layui-form-label">题目类型</label>
+            <div class="layui-input-inline">
+                  <select name="type" lay-verify="required" lay-reqtext="题目类型是必填项，岂能为空？" autocomplete="off" class="layui-input">
+                      <option value="">请选择</option>
+                      <option value="单选题">单选题</option>                      
+                      <option value="多选题">多选题</option>
+                  </select>
+            </div>
+            </div>
+            
+            <div class="layui-inline">
+            <label class="layui-form-label">序号</label>
+            <div class="layui-input-inline">
+                  <input type="text" name="orderNo" lay-verify="required" lay-reqtext="序号是必填项，岂能为空？" autocomplete="off" placeholder="请输入序号" class="layui-input">
+            </div>
+            </div>
+          </div>
+          <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">选项A</label>
+            <div class="layui-input-block">
+                  <input type="text" name="resultA" lay-verify="required" lay-reqtext="选项A是必填项，岂能为空？" autocomplete="off" placeholder="请输入选项A" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">选项B</label>
+            <div class="layui-input-block">
+                  <input type="text" name="resultB" lay-verify="required" lay-reqtext="选项B是必填项，岂能为空？" autocomplete="off" placeholder="请输入选项B" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">选项C</label>
+            <div class="layui-input-block">
+                  <input type="text" name="resultC" lay-verify="required" lay-reqtext="选项C是必填项，岂能为空？" autocomplete="off" placeholder="请输入选项C" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">选项D</label>
+            <div class="layui-input-block">
+                  <input type="text" name="resultD" lay-verify="required" lay-reqtext="选项D是必填项，岂能为空？" autocomplete="off" placeholder="请输入选项D" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-form-item layui-form-text">
+            <div class="layui-inline">
+            <label class="layui-form-label">正确答案</label>
+            <div class="layui-input-inline">
+                  <input type="text" name="correctResult" lay-verify="required" lay-reqtext="正确答案是必填项，岂能为空？" autocomplete="off" placeholder="请输入正确答案" class="layui-input">
+            </div>
+            </div>
+            <div class="layui-inline">
+            <label class="layui-form-label">分数</label>
+            <div class="layui-input-inline">
+                  <input type="text" name="score" lay-verify="required" lay-reqtext="分数是必填项，岂能为空？" autocomplete="off" placeholder="请输入分数" class="layui-input">
+            </div>
+            </div>
+          </div>
+            
+          <div class="layui-form-item">
+            <div class="layui-input-block">
+              <button type="submit" class="layui-btn" lay-submit="" lay-filter="btnSaveExam" id="btnSaveExam">保存</button>
               <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+          </div>
+        </form>
+    </script>
+    <script type="text/html" id="editExamForm">
+        <form class="layui-form" action="" style="padding:10px;" lay-filter="editExamForm">
+		  <div class="layui-form-item layui-form-text" style="display:none">
+            <label class="layui-form-label">编码</label>
+            <div class="layui-input-block">
+                  <input type="text" name="id" lay-verify="required" lay-reqtext="编码是必填项，岂能为空？" autocomplete="off" placeholder="请输入编码" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">题目</label>
+            <div class="layui-input-block">
+                  <input type="text" name="title" lay-verify="required" lay-reqtext="题目是必填项，岂能为空？" autocomplete="off" placeholder="请输入题目" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-form-item layui-form-text">
+            <div class="layui-inline">
+            <label class="layui-form-label">题目类型</label>
+            <div class="layui-input-inline">
+                  <select name="type" lay-verify="required" lay-reqtext="题目类型是必填项，岂能为空？" autocomplete="off" class="layui-input">
+                      <option value="">请选择</option>
+                      <option value="单选题">单选题</option>                      
+                      <option value="多选题">多选题</option>
+                  </select>
+            </div>
+            </div>
+            
+            <div class="layui-inline">
+            <label class="layui-form-label">序号</label>
+            <div class="layui-input-inline">
+                  <input type="text" name="orderNo" lay-verify="required" lay-reqtext="序号是必填项，岂能为空？" autocomplete="off" placeholder="请输入序号" class="layui-input">
+            </div>
+            </div>
+          </div>
+          <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">选项A</label>
+            <div class="layui-input-block">
+                  <input type="text" name="resultA" lay-verify="required" lay-reqtext="选项A是必填项，岂能为空？" autocomplete="off" placeholder="请输入选项A" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">选项B</label>
+            <div class="layui-input-block">
+                  <input type="text" name="resultB" lay-verify="required" lay-reqtext="选项B是必填项，岂能为空？" autocomplete="off" placeholder="请输入选项B" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">选项C</label>
+            <div class="layui-input-block">
+                  <input type="text" name="resultC" lay-verify="required" lay-reqtext="选项C是必填项，岂能为空？" autocomplete="off" placeholder="请输入选项C" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">选项D</label>
+            <div class="layui-input-block">
+                  <input type="text" name="resultD" lay-verify="required" lay-reqtext="选项D是必填项，岂能为空？" autocomplete="off" placeholder="请输入选项D" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-form-item layui-form-text">
+            <div class="layui-inline">
+            <label class="layui-form-label">正确答案</label>
+            <div class="layui-input-inline">
+                  <input type="text" name="correctResult" lay-verify="required" lay-reqtext="正确答案是必填项，岂能为空？" autocomplete="off" placeholder="请输入正确答案" class="layui-input">
+            </div>
+            </div>
+            <div class="layui-inline">
+            <label class="layui-form-label">分数</label>
+            <div class="layui-input-inline">
+                  <input type="text" name="score" lay-verify="required" lay-reqtext="分数是必填项，岂能为空？" autocomplete="off" placeholder="请输入分数" class="layui-input">
+            </div>
+            </div>
+          </div>
+            
+          <div class="layui-form-item">
+            <div class="layui-input-block">
+              <button type="submit" class="layui-btn" lay-submit="" lay-filter="btnSaveExam" id="btnSaveExam">保存</button>
             </div>
           </div>
         </form>
     </script>
     <script src="../layui/layui.js"></script>
     <script>
-        layui.use(["element", "tree", "layer", "table","form"], function () {
+        layui.use(["element", "tree", "layer", "table", "form"], function () {
             var element = layui.element,
                 tree = layui.tree,
                 layer = layui.layer,
@@ -184,6 +337,30 @@
                 $ = layui.$,
                 form = layui.form;
             var selectedExamDesc = {};
+            var tableIns = table.render({
+                elem: '#test'
+                , url: '/Admin/ExamDesc.aspx'
+                , toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
+                , defaultToolbar: ['filter', 'exports', 'print']
+                , where: {
+                    action: "getExam",
+                    examDescription_id: 0
+                }
+                , title: $("#exam_desc_title").html()
+                , cols: [[
+                    { field: 'orderNo', title: '序号', width: 80, unresize: true, sort: true }
+                    , { field: 'type', title: '类型', width: 80, sort: true }
+                    , { field: 'score', title: '分值', width: 80, sort: true }
+                    , { field: 'title', title: '题目', width: 150 }
+                    , { field: 'correctResult', title: '正确答案', width: 120 }
+                    , { field: 'resultA', title: '选项A', width: 150 }
+                    , { field: 'resultB', title: '选项B', width: 150 }
+                    , { field: 'resultC', title: '选项C', width: 150 }
+                    , { field: 'resultD', title: '选项D', width: 150 }
+                    , { fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150 }
+                ]]
+                , page: true
+            });
             getTree();
             function reloadTree(data_exam_desc) {
                 if (data_exam_desc.length <= 0) {
@@ -193,7 +370,7 @@
                 pp.push({ title: "试题库", id: 0, spread: true, children: data_exam_desc });
                 tree.render({
                     id: "test1",
-                    elem: "#test1", data: pp, showCheckbox: true, click: function (obj) {
+                    elem: "#test1", data: pp, click: function (obj) {
                         if (obj.data.id === 0) {
                             return;
                         }
@@ -230,63 +407,41 @@
                 });
 
                 if (data_exam_desc.length <= 0) {
-                    tableIns.reload({
-						where:{
-							action: "getExam",
-							examDescription_id: 0
-						},page:{
-							curr:1
-						}
-					})
-					$("#exam_desc_title").html("");
-                }else{
-					selectedExamDesc = data_exam_desc[0];
-					selectChanged(selectedExamDesc);
-				}
+                    reloadExamTable(0);
+                    $("#exam_desc_title").html("");
+                } else {
+                    selectedExamDesc = data_exam_desc[0];
+                    selectChanged(selectedExamDesc);
+                }
             }
-			var tableIns;
+
+            function reloadExamTable(id) {
+                tableIns.reload({
+                    where: {
+                        action: "getExam",
+                        examDescription_id: id
+                    }, page: {
+                        curr: 1
+                    }
+                });
+            }
+
             function selectChanged(data) {
                 if (data === undefined) {
                     return;
                 }
                 $("#exam_desc_title").html(data.title);
-
-                tableIns = table.render({
-                    elem: '#test'
-                    , url: '/Admin/ExamDesc.aspx'
-                    , toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
-                    , defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
-                        title: '提示'
-                        , layEvent: 'LAYTABLE_TIPS'
-                        , icon: 'layui-icon-tips'
-                    }]
-                    , where:{
-                        action: "getExam",
-                        examDescription_id: selectedExamDesc.id
-                    }
-                    , title: '用户数据表'
-                    , cols: [[
-                        { type: 'checkbox', fixed: 'left' }
-                        , { field: 'orderNo', title: '序号', width: 80, unresize: true, sort: true }
-                        , { field: 'type', title: '类型', width: 80 , sort: true }
-                        , { field: 'score', title: '分值', width: 80  , sort: true }
-                        , { field: 'title', title: '题目', width: 150 }
-                        , { field: 'correctResult', title: '正确答案', width: 120 }
-                        , { field: 'resultA', title: '选项A', width: 150 }
-                        , { field: 'resultB', title: '选项B', width: 150 }
-                        , { field: 'resultC', title: '选项C', width: 150 }
-                        , { field: 'resultD', title: '选项D', width: 150 }
-                    ]]
-                    , page: true
-                });
+                reloadExamTable(data.id);
             }
+            
+
 
             function getTree() {
                 layer.load(0, {
                     shade: [0.1, '#fff'] //0.1透明度的白色背景
                 });
                 $.ajax({
-                    data: {action:"getExamDesc"},
+                    data: { action: "getExamDesc" },
                     dataType: "json",
                     type: "post",
                     url: "/Admin/ExamDesc.aspx",
@@ -318,6 +473,7 @@
                     success: function (res) {
                         if (res.code === 0) {
                             layer.closeAll();
+                            layer.msg("删除试卷信息成功");
                             getTree();
                         } else {
                             layer.closeAll();
@@ -333,37 +489,43 @@
 
             }
             $("#btnDel").click(function () {
-                var checkedData = tree.getChecked("test1");
-                if (checkedData.length <= 0) {
-                    layer.msg("请勾选要删除的记录");
+                //var checkedData = tree.getChecked("test1");
+                //if (checkedData.length <= 0) {
+                //    layer.msg("请勾选要删除的记录");
+                //    return;
+                //}
+                
+                if (selectedExamDesc.length <= 0) {
+                    layer.msg("没有要删除的记录");
                     return;
                 }
                 var tmp = [];
-                $.each(checkedData, function (key1, val1) {
-                    $.each(val1.children, function (key2, val2) {
-                        tmp.push(val2.id);
-                    });
+                //$.each(checkedData, function (key1, val1) {
+                //    $.each(val1.children, function (key2, val2) {
+                //        tmp.push(val2.id);
+                //    });
+                //});
+                tmp.push(selectedExamDesc.id);
+                layer.confirm('真的删除数据么', function (index) {
+                    delExamDesc(tmp);
                 });
-				layer.confirm('真的删除数据么', function (index) {
-					delExamDesc(tmp);
-				});
             });
-            
+
             $("#btnEdit").click(function () {
                 if (selectedExamDesc.length <= 0) {
                     layer.msg("没有要修改的记录");
                     return;
                 }
-				
-				layer.open({
+
+                layer.open({
                     type: 1,
                     area: ['700px', '400px'],
-					title:"新增",
+                    title: "修改",
                     fixed: false, //不固定
                     content: $("#editForm").html(),
                     success: function () {
                         form.render();
-						form.val("editForm",selectedExamDesc);
+                        form.val("editForm", selectedExamDesc);
                     }
                 });
             });
@@ -372,7 +534,7 @@
                 layer.open({
                     type: 1,
                     area: ['700px', '400px'],
-					title:"新增",
+                    title: "新增",
                     fixed: false, //不固定
                     content: $("#addForm").html(),
                     success: function () {
@@ -380,20 +542,20 @@
                     }
                 });
             });
-			form.on("submit(btnSave)",function(data){
-				var formData = data.field;
-				if(formData.id===undefined){
-					form.id = 0;
-				}
-				if(form.id<=0){
-					formData.action="addExamDesc";
-				}else{
-					formData.action="editExamDesc";
-				}
+            form.on("submit(btnSave)", function (data) {
+                var formData = data.field;
+                if (formData.id === undefined) {
+                    formData.id = 0;
+                }
+                if (formData.id <= 0) {
+                    formData.action = "addExamDesc";
+                } else {
+                    formData.action = "editExamDesc";
+                }
                 layer.load(0, {
                     shade: [0.1, '#fff'] //0.1透明度的白色背景
                 });
-				$.ajax({
+                $.ajax({
                     data: formData,
                     dataType: "json",
                     type: "post",
@@ -402,7 +564,7 @@
                         if (res.code === 0) {
                             layer.closeAll();
                             layer.msg("保存成功");
-							getTree();
+                            getTree();
                         } else {
                             layer.closeAll();
                             layer.msg("保存失败，错误信息：" + res.msg);
@@ -415,7 +577,44 @@
                 })
 
                 return false;
-			});
+            });
+            form.on("submit(btnSaveExam)", function (data) {
+                var formData = data.field;
+                if (formData.id === undefined) {
+                    formData.id = 0;
+                }
+                if (formData.id <= 0) {
+                    formData.action = "addExam";
+                } else {
+                    formData.action = "editExam";
+                }
+                formData.examDescription_id = selectedExamDesc.id;
+                layer.load(0, {
+                    shade: [0.1, '#fff'] //0.1透明度的白色背景
+                });
+                $.ajax({
+                    data: formData,
+                    dataType: "json",
+                    type: "post",
+                    url: "/Admin/ExamDesc.aspx",
+                    success: function (res) {
+                        if (res.code === 0) {
+                            layer.closeAll();
+                            layer.msg("保存成功");
+                            getTree();
+                        } else {
+                            layer.closeAll();
+                            layer.msg("保存失败，错误信息：" + res.msg);
+                        }
+                    },
+                    error: function (a, b, c) {
+                        layer.closeAll();
+                        layer.msg("发生异常，错误代码" + a.status + ",错误信息" + a.statusText);
+                    }
+                })
+
+                return false;
+            });
             //头工具栏事件
             table.on('toolbar(test)', function (obj) {
                 var checkStatus = table.checkStatus(obj.config.id);
@@ -431,10 +630,26 @@
                     case 'isAll':
                         layer.msg(checkStatus.isAll ? '全选' : '未全选');
                         break;
-
-                    //自定义头工具栏右侧图标 - 提示
-                    case 'LAYTABLE_TIPS':
-                        layer.alert('这是工具栏右侧自定义的一个图标按钮');
+                    case "addExam":
+                        layer.open({
+                            type: 1,
+                            area: ['760px', '550px'],
+                            title: "新增",
+                            fixed: false, //不固定
+                            content: $("#addExamForm").html(),
+                            success: function () {
+                                form.render();
+                            }
+                        });
+                        break;
+                    case "refreshExam":
+                        var id;
+                        if (selectedExamDesc.length <= 0) {
+                            id = 0;
+                        } else {
+                            id = selectedExamDesc.id;
+                        }
+                        reloadExamTable(id);
                         break;
                 };
             });
@@ -445,18 +660,38 @@
                 //console.log(obj)
                 if (obj.event === 'del') {
                     layer.confirm('真的删除行么', function (index) {
-                        obj.del();
-                        layer.close(index);
+                        $.ajax({
+                            data: { action: "delExam", id: data.id },
+                            dataType: "json",
+                            type: "post",
+                            url: "/Admin/ExamDesc.aspx",
+                            success: function (res) {
+                                if (res.code === 0) {
+                                    layer.closeAll();
+                                    obj.del();
+                                    layer.msg("删除成功");
+                                } else {
+                                    layer.closeAll();
+                                    layer.msg("删除失败，错误信息：" + res.msg);
+                                }
+                            },
+                            error: function (a, b, c) {
+                                layer.closeAll();
+                                layer.msg("发生异常，错误代码" + a.status + ",错误信息" + a.statusText);
+                            }
+                        });
                     });
                 } else if (obj.event === 'edit') {
-                    layer.prompt({
-                        formType: 2
-                        , value: data.email
-                    }, function (value, index) {
-                        obj.update({
-                            email: value
-                        });
-                        layer.close(index);
+                    layer.open({
+                        type: 1,
+                        area: ['760px', '550px'],
+                        title: "修改",
+                        fixed: false, //不固定
+                        content: $("#editExamForm").html(),
+                        success: function () {
+                            form.render();
+                            form.val("editExamForm", data);
+                        }
                     });
                 }
             });
