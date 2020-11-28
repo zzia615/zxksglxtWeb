@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8">
   <%--<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">--%>
-  <title>OA办公管理系统</title>
+  <title>在线考试管理系统</title>
   <link rel="stylesheet" href="layui/css/layui.css">
     <style>
         .layui-body{
@@ -17,7 +17,7 @@
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
   <div class="layui-header">
-    <div class="layui-logo">OA办公管理系统</div>
+    <div class="layui-logo"><h3>在线考试管理系统</h3></div>
     <!-- 头部区域（可配合layui已有的水平导航） -->
     <ul class="layui-nav layui-layout-left">
       <li class="layui-nav-item layui-this"><a href="Welcome.aspx" target="mainFrame">控制台</a></li>
@@ -46,6 +46,7 @@
           <a class="" href="javascript:;">基础数据</a>
           <dl class="layui-nav-child">
             <dd><a href="/Admin/ExamDesc.aspx" target="mainFrame">题库维护</a></dd>  
+            <dd><a href="/Admin/UserInfo.aspx" target="mainFrame">用户维护</a></dd>  
           </dl>
         </li>
       </ul>

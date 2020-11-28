@@ -20,9 +20,7 @@ namespace zxksglxtWeb.BLL
             var dataList = base.Query(whereClause, dic);
             dataList.ForEach(a =>
             {
-                Dictionary<string, object> dic1 = new Dictionary<string, object>();
-                dic1.Add("id", a.id);
-                a.ExamList = new examBLL().Query("examDescription_id=@id", dic1);
+                a.ExamList = new examBLL().QueryByExamDescID(a.id);
             });
 
             return dataList;

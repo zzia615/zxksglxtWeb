@@ -7,47 +7,105 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title></title>
     <link href="../layui/css/layui.css" rel="stylesheet" />
+    <style>
+        body{
+            background:#eee;
+            overflow:hidden;
+        }
+
+        #card1{
+            position:absolute;
+            top:5px;
+            height:120px;
+            left:5px;
+            right:5px;
+            margin-bottom:0px;
+        }
+        
+        #card3{
+            position:absolute;
+            height:60px;
+            left:5px;
+            right:5px;
+            top:130px;
+            margin-bottom:0px;
+        }
+
+        #card2{
+            position:absolute;
+            top:200px;
+            left:5px;
+            right:5px;
+            bottom:5px;
+            margin-bottom:0px;
+            overflow:auto;
+        }
+
+    </style>
 </head>
 <body style="padding:20px;">
-    <form class="layui-form" lay-filter="examForm">
-       <input name="pid" style="display:none" />
-       <div>单选题</div>
-       <%foreach (var exam in ExamDesc.ExamList.Where(a=>a.type=="单选题"))
-           { %>
-       <div><%=exam.id.ToString()+".("+exam.score.ToString()+"分)"+exam.title%>
-        <div>
-            <input type="radio" name="r_<%=exam.id %>" value="A" title="A.<%=exam.resultA %>"/>
-         </div>
-        <div>
-            <input type="radio" name="r_<%=exam.id %>" value="B" title="B.<%=exam.resultB %>" />
+    <div class="layui-card" id="card1">
+        <div class="layui-card-header">
+            <h2><%=ExamDesc.title %></h2>
         </div>
-        <div>
-            <input type="radio" name="r_<%=exam.id %>" value="C" title="C.<%=exam.resultC %>" />
+        <div class="layui-card-body">
+            <h3>考试姓名：<%=UserInfo.code %> 考生身份证号:<%=UserInfo.sfzh %></h3>
+            <h3>时间限制：<%=ExamDesc.costTime %>分钟</h3>
         </div>
-        <div>
-            <input type="radio" name="r_<%=exam.id %>" value="D" title="D.<%=exam.resultD %>" />
-        </div>
-        </div>
-       <%} %>
-       <div>多选题</div>
-        <%foreach (var exam in ExamDesc.ExamList.Where(a=>a.type=="多选题"))
-           { %>
-       <div><%=exam.id.ToString()+".("+exam.score.ToString()+"分)"+exam.title%>
-        <div>
-            <input type="checkbox" lay-skin="primary" name="c_<%=exam.id %>[A]" title="A.<%=exam.resultA %>"/>
-         </div>
-        <div>
-            <input type="checkbox" lay-skin="primary" name="c_<%=exam.id %>[B]" title="B.<%=exam.resultB %>" />
-        </div>
-        <div>
-            <input type="checkbox" lay-skin="primary" name="c_<%=exam.id %>[C]" title="C.<%=exam.resultC %>" />
-        </div>
-        <div>
-            <input type="checkbox" lay-skin="primary" name="c_<%=exam.id %>[D]" title="D.<%=exam.resultD %>" />
-        </div>
-        </div>
-       <%} %>
-        <button lay-submit lay-filter="btnSave" class="layui-btn">保存</button>
+    </div>
+    <form class="layui-form" lay-filter="examForm">           
+       <div class="layui-card" id="card3">
+           <div class="layui-card-body">
+                <button lay-submit lay-filter="btnSave" class="layui-btn">交卷</button>
+           </div>
+       </div>
+       <div class="layui-card" id="card2">
+           <div class="layui-card-body">
+               <input name="pid" style="display:none" value="<%=ExamResult.id %>"/>
+               <input name="examDesc_id" style="display:none" value="<%=ExamDesc.id %>"/>
+               <input name="scode" style="display:none" value="<%=UserInfo.code %>"/>
+               <div><h2>一、单选题</h2></div>
+               <%foreach (var exam in ExamDesc.ExamList.Where(a=>a.type=="单选题"))
+                   { %>
+               <div><%=exam.orderNo.ToString()+".("+exam.score.ToString()+"分)"+exam.title%>
+                <div>
+                    <input type="radio" name="r_<%=exam.id %>" value="A" title="A.<%=exam.resultA %>"/>
+                    <input type="radio" name="r_<%=exam.id %>" value="B" title="B.<%=exam.resultB %>" />
+                </div>
+                <div>
+                    <input type="radio" name="r_<%=exam.id %>" value="C" title="C.<%=exam.resultC %>" />
+                    <input type="radio" name="r_<%=exam.id %>" value="D" title="D.<%=exam.resultD %>" />
+                </div>
+                </div>
+               <%} %>
+               <div><h2>二、多选题</h2></div>
+                <%foreach (var exam in ExamDesc.ExamList.Where(a=>a.type=="多选题"))
+                   { %>
+               <div><%=exam.orderNo.ToString()+".("+exam.score.ToString()+"分)"+exam.title%>
+                <div style="margin-top:5px;">
+                    <input type="checkbox" lay-skin="primary" name="c_<%=exam.id %>[A]" title="A.<%=exam.resultA %>"/>
+                    <input type="checkbox" lay-skin="primary" name="c_<%=exam.id %>[B]" title="B.<%=exam.resultB %>" />
+                </div>
+                <div style="margin-top:5px;">
+                    <input type="checkbox" lay-skin="primary" name="c_<%=exam.id %>[C]" title="C.<%=exam.resultC %>" />
+                    <input type="checkbox" lay-skin="primary" name="c_<%=exam.id %>[D]" title="D.<%=exam.resultD %>" />
+                </div>
+                </div>
+               <%} %>
+        
+               <div><h2>三、判断题</h2></div>
+                <%foreach (var exam in ExamDesc.ExamList.Where(a=>a.type=="判断题"))
+                   { %>
+               <div><%=exam.orderNo.ToString()+".("+exam.score.ToString()+"分)"+exam.title%>
+        
+                    <input type="radio" name="k_<%=exam.id %>" value="A" title="A.<%=exam.resultA %>"/>
+                    <input type="radio" name="k_<%=exam.id %>" value="B" title="B.<%=exam.resultB %>" />
+
+                </div>
+               <%} %>
+           </div>
+       </div>
+       
     </form>
     <script src="../layui/layui.js"></script>
     <script>

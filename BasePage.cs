@@ -48,6 +48,16 @@ namespace zxksglxtWeb
             Response.End();
         }
         /// <summary>
+        /// 提示并跳转
+        /// </summary>
+        /// <param name="msg"></param>
+        public void ResponseAlert(string msg,string url)
+        {
+            string html = @"<script>alert('" + msg + "');window.location.href='"+url+"';</script>";
+            Response.Write(html);
+            Response.End();
+        }
+        /// <summary>
         /// 下载文件
         /// </summary>
         /// <param name="fileName"></param>

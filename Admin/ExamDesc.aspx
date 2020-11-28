@@ -54,7 +54,7 @@
         <div class="layui-card-body">
             <span class="layui-breadcrumb">
               <a href="#">首页</a>
-              <a><cite>导航元素</cite></a>
+              <a><cite>题库维护</cite></a>
             </span>
         </div>
     </div>
@@ -71,15 +71,18 @@
         </div>
     </div>
             
-    <div class="layui-card"  id="card2">
+    <div class="layui-card" id="card2">
         <div class="layui-card-body">
             <blockquote class="layui-elem-quote" id="exam_desc_title"></blockquote>
             <table class="layui-hide" id="test" lay-filter="test"></table>
  
             <script type="text/html" id="toolbarDemo">
                 <div class="layui-btn-container">
-                <button class="layui-btn layui-btn-sm" lay-event="refreshExam">刷新</button>
-                <button class="layui-btn layui-btn-sm" lay-event="addExam">新增</button>
+                <button class="layui-btn layui-btn-sm" lay-event="refreshExam"><i class="layui-icon layui-icon-refresh"></i>刷新</button>
+                <button class="layui-btn layui-btn-sm" lay-event="addExam"><i class="layui-icon layui-icon-add-1"></i>新增单选/多选题</button>
+                <button class="layui-btn layui-btn-sm" lay-event="addExam1"><i class="layui-icon layui-icon-add-1"></i>新增判断题</button>
+                <button class="layui-btn layui-btn-sm" lay-event="previewExamDesc"><i class="layui-icon layui-table-view"></i>预览试卷</button>
+
                 </div>
             </script>
  
@@ -89,6 +92,7 @@
             </script>
         </div>
     </div>
+
     <script type="text/html" id="addForm">
         <form class="layui-form" action="" style="padding:10px;">
           <div class="layui-form-item layui-form-text">
@@ -173,7 +177,6 @@
         </form>
     </script>
 
-    
     <script type="text/html" id="addExamForm">
         <form class="layui-form" action="" style="padding:10px;">
           <div class="layui-form-item layui-form-text">
@@ -327,6 +330,136 @@
           </div>
         </form>
     </script>
+
+    
+    <script type="text/html" id="addExamForm1">
+        <form class="layui-form" action="" style="padding:10px;" lay-filter="addExamForm1">
+          <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">题目</label>
+            <div class="layui-input-block">
+                  <input type="text" name="title" lay-verify="required" lay-reqtext="题目是必填项，岂能为空？" autocomplete="off" placeholder="请输入题目" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-form-item layui-form-text">
+            <div class="layui-inline">
+            <label class="layui-form-label">题目类型</label>
+            <div class="layui-input-inline">
+                  <select name="type" lay-verify="required" lay-reqtext="题目类型是必填项，岂能为空？" autocomplete="off" class="layui-input">
+                      <option value="">请选择</option>
+                      <option value="判断题">判断题</option>   
+                  </select>
+            </div>
+            </div>
+            
+            <div class="layui-inline">
+            <label class="layui-form-label">序号</label>
+            <div class="layui-input-inline">
+                  <input type="text" name="orderNo" lay-verify="required" lay-reqtext="序号是必填项，岂能为空？" autocomplete="off" placeholder="请输入序号" class="layui-input">
+            </div>
+            </div>
+          </div>
+          <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">选项A</label>
+            <div class="layui-input-block">
+                  <input type="text" name="resultA" lay-verify="required" lay-reqtext="选项A是必填项，岂能为空？" autocomplete="off" placeholder="请输入选项A" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">选项B</label>
+            <div class="layui-input-block">
+                  <input type="text" name="resultB" lay-verify="required" lay-reqtext="选项B是必填项，岂能为空？" autocomplete="off" placeholder="请输入选项B" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-form-item layui-form-text">
+            <div class="layui-inline">
+            <label class="layui-form-label">正确答案</label>
+            <div class="layui-input-inline">
+                  <input type="text" name="correctResult" lay-verify="required" lay-reqtext="正确答案是必填项，岂能为空？" autocomplete="off" placeholder="请输入正确答案" class="layui-input">
+            </div>
+            </div>
+            <div class="layui-inline">
+            <label class="layui-form-label">分数</label>
+            <div class="layui-input-inline">
+                  <input type="text" name="score" lay-verify="required" lay-reqtext="分数是必填项，岂能为空？" autocomplete="off" placeholder="请输入分数" class="layui-input">
+            </div>
+            </div>
+          </div>
+            
+          <div class="layui-form-item">
+            <div class="layui-input-block">
+              <button type="submit" class="layui-btn" lay-submit="" lay-filter="btnSaveExam" id="btnSaveExam">保存</button>
+              <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+          </div>
+        </form>
+    </script>
+    <script type="text/html" id="editExamForm1">
+        <form class="layui-form" action="" style="padding:10px;" lay-filter="editExamForm1">
+		  <div class="layui-form-item layui-form-text" style="display:none">
+            <label class="layui-form-label">编码</label>
+            <div class="layui-input-block">
+                  <input type="text" name="id" lay-verify="required" lay-reqtext="编码是必填项，岂能为空？" autocomplete="off" placeholder="请输入编码" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">题目</label>
+            <div class="layui-input-block">
+                  <input type="text" name="title" lay-verify="required" lay-reqtext="题目是必填项，岂能为空？" autocomplete="off" placeholder="请输入题目" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-form-item layui-form-text">
+            <div class="layui-inline">
+            <label class="layui-form-label">题目类型</label>
+            <div class="layui-input-inline">
+                  <select name="type" lay-verify="required" lay-reqtext="题目类型是必填项，岂能为空？" autocomplete="off" class="layui-input">
+                      <option value="">请选择</option>
+                      <option value="判断题">判断题</option>   
+                  </select>            
+            </div>
+            </div>
+            <div class="layui-inline">
+            <label class="layui-form-label">序号</label>
+            <div class="layui-input-inline">
+                  <input type="text" name="orderNo" lay-verify="required" lay-reqtext="序号是必填项，岂能为空？" autocomplete="off" placeholder="请输入序号" class="layui-input">
+            </div>
+            </div>
+          </div>
+          <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">选项A</label>
+            <div class="layui-input-block">
+                  <input type="text" name="resultA" lay-verify="required" lay-reqtext="选项A是必填项，岂能为空？" autocomplete="off" placeholder="请输入选项A" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">选项B</label>
+            <div class="layui-input-block">
+                  <input type="text" name="resultB" lay-verify="required" lay-reqtext="选项B是必填项，岂能为空？" autocomplete="off" placeholder="请输入选项B" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-form-item layui-form-text">
+            <div class="layui-inline">
+            <label class="layui-form-label">正确答案</label>
+            <div class="layui-input-inline">
+                  <input type="text" name="correctResult" lay-verify="required" lay-reqtext="正确答案是必填项，岂能为空？" autocomplete="off" placeholder="请输入正确答案" class="layui-input">
+            </div>
+            </div>
+            <div class="layui-inline">
+            <label class="layui-form-label">分数</label>
+            <div class="layui-input-inline">
+                  <input type="text" name="score" lay-verify="required" lay-reqtext="分数是必填项，岂能为空？" autocomplete="off" placeholder="请输入分数" class="layui-input">
+            </div>
+            </div>
+          </div>
+            
+          <div class="layui-form-item">
+            <div class="layui-input-block">
+              <button type="submit" class="layui-btn" lay-submit="" lay-filter="btnSaveExam" id="btnSaveExam">保存</button>
+            </div>
+          </div>
+        </form>
+    </script>
+
+
     <script src="../layui/layui.js"></script>
     <script>
         layui.use(["element", "tree", "layer", "table", "form"], function () {
@@ -430,7 +563,11 @@
                 if (data === undefined) {
                     return;
                 }
-                $("#exam_desc_title").html(data.title);
+                var isPublish = "未发布";
+                if (data.isPublished === 1) {
+                    isPublish = "已发布";
+                }
+                $("#exam_desc_title").html("[试卷编号："+data.id+"] - "+data.title+" - 【及格分：<i style='color:red'>"+data.passScore+"</i>分，时间限制：<i style='color:red'>"+data.costTime+"</i>分钟，是否发布：<i style='color:red;font:bold;'>"+isPublish+"</i>】");
                 reloadExamTable(data.id);
             }
             
@@ -615,6 +752,9 @@
 
                 return false;
             });
+            
+
+
             //头工具栏事件
             table.on('toolbar(test)', function (obj) {
                 var checkStatus = table.checkStatus(obj.config.id);
@@ -642,6 +782,18 @@
                             }
                         });
                         break;
+                    case "addExam1":
+                        layer.open({
+                            type: 1,
+                            area: ['760px', '400px'],
+                            title: "新增",
+                            fixed: false, //不固定
+                            content: $("#addExamForm1").html(),
+                            success: function () {
+                                form.render();
+                            }
+                        });
+                        break;
                     case "refreshExam":
                         var id;
                         if (selectedExamDesc.length <= 0) {
@@ -650,6 +802,15 @@
                             id = selectedExamDesc.id;
                         }
                         reloadExamTable(id);
+                        break;
+                    case "previewExamDesc":
+                        var id;
+                        if (selectedExamDesc.length <= 0) {
+                            id = 0;
+                        } else {
+                            id = selectedExamDesc.id;
+                        }
+                        window.open("/Admin/ExamPreview.aspx?exam_des_id=" + id, "_blank");
                         break;
                 };
             });
@@ -682,17 +843,31 @@
                         });
                     });
                 } else if (obj.event === 'edit') {
-                    layer.open({
-                        type: 1,
-                        area: ['760px', '550px'],
-                        title: "修改",
-                        fixed: false, //不固定
-                        content: $("#editExamForm").html(),
-                        success: function () {
-                            form.render();
-                            form.val("editExamForm", data);
-                        }
-                    });
+                    if (data.type === "判断题") {
+                        layer.open({
+                            type: 1,
+                            area: ['760px', '400px'],
+                            title: "修改",
+                            fixed: false, //不固定
+                            content: $("#editExamForm1").html(),
+                            success: function () {
+                                form.render();
+                                form.val("editExamForm1", data);
+                            }
+                        });
+                    } else {
+                        layer.open({
+                            type: 1,
+                            area: ['760px', '550px'],
+                            title: "修改",
+                            fixed: false, //不固定
+                            content: $("#editExamForm").html(),
+                            success: function () {
+                                form.render();
+                                form.val("editExamForm", data);
+                            }
+                        });
+                    }
                 }
             });
         });

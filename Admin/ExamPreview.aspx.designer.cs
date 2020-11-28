@@ -7,9 +7,9 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace zxksglxtWeb.Exam {
+namespace zxksglxtWeb.Admin {
     
     
-    public partial class Success {
+    public partial class ExamPreview {
     }
 }

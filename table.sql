@@ -44,8 +44,8 @@ title nvarchar(500) not null,                 --题目
 type nvarchar(20) not null,                   --单选题、多选题
 resultA nvarchar(500) not null,               --A选项
 resultB nvarchar(500) not null,               --B选项
-resultC nvarchar(500) not null,               --C选项
-resultD nvarchar(500) not null,               --D选项
+resultC nvarchar(500) null,					  --C选项
+resultD nvarchar(500) null,                   --D选项
 correctResult nvarchar(20) not null,          --正确答案A、B、C、D，如果是多选则用逗号隔开
 score int not NULL,                           --分值
 orderNo int not null                          --序号，从1开始
@@ -69,6 +69,8 @@ create table examResultDetail
 id int identity(1,1) not null primary key,    --自增长ID
 pid int not null,                             --结果ID
 exam_id int not null,                         --试题ID
-chooseResult nvarchar(20) not null            --选择的结果A、B、C、D，如果是多选则用逗号隔开
+chooseResult nvarchar(20) not null,           --选择的结果A、B、C、D，如果是多选则用逗号隔开
+isCorrect int default 0 not null,			  --是否正确：1正确 0不正确
+score int default 0 not null				  --得分
 )
 go

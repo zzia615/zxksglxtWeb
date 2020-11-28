@@ -62,6 +62,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Admin\ExamPreview.aspx" />
+    <Content Include="Admin\UserInfo.aspx" />
     <Content Include="Admin\ExamDesc.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="layui\font\iconfont.eot" />
@@ -188,6 +190,20 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\ExamPreview.aspx.cs">
+      <DependentUpon>ExamPreview.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ExamPreview.aspx.designer.cs">
+      <DependentUpon>ExamPreview.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\UserInfo.aspx.cs">
+      <DependentUpon>UserInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\UserInfo.aspx.designer.cs">
+      <DependentUpon>UserInfo.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\ExamDesc.aspx.cs">
       <DependentUpon>ExamDesc.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -201,11 +217,14 @@
     <Compile Include="BLL\baseBLL.cs" />
     <Compile Include="BLL\examBLL.cs" />
     <Compile Include="BLL\examDescriptionBLL.cs" />
+    <Compile Include="BLL\examResultBLL.cs" />
+    <Compile Include="BLL\userInfoBLL.cs" />
     <Compile Include="DAL\baseDAL.cs" />
     <Compile Include="DAL\examDAL.cs" />
     <Compile Include="DAL\examDescriptionDAL.cs" />
     <Compile Include="DAL\examResultDAL.cs" />
     <Compile Include="DAL\examResultDetailDAL.cs" />
+    <Compile Include="DAL\useInfoDAL.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
