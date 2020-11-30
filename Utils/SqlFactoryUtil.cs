@@ -169,7 +169,7 @@ namespace zxksglxtWeb.Utils
         /// <returns></returns>
         public int ExecuteSql(string sql,IDbDataParameter[] parameters)
         {
-            return ExecuteSql(sql, CommandType.Text, null);
+            return ExecuteSql(sql, CommandType.Text, parameters);
         }
         /// <summary>
         /// 执行SQL语句
@@ -216,7 +216,7 @@ namespace zxksglxtWeb.Utils
         /// <returns></returns>
         public object ExecuteScalar(string sql, IDbDataParameter[] parameters)
         {
-            return ExecuteScalar(sql, CommandType.Text, null);
+            return ExecuteScalar(sql, CommandType.Text, parameters);
         }
         /// <summary>
         /// 执行查询并返回第一行第一列
@@ -263,7 +263,7 @@ namespace zxksglxtWeb.Utils
         /// <returns></returns>
         public DataSet QueryDataSet(string sql, IDbDataParameter[] parameters)
         {
-            return QueryDataSet(sql, CommandType.Text, null);
+            return QueryDataSet(sql, CommandType.Text, parameters);
         }
         /// <summary>
         /// 执行查询并返回数据集
