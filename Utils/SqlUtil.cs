@@ -491,12 +491,3 @@ namespace zxksglxtWeb.Utils
 
     }
 }
-
-public class IgnoreAttribute : Attribute
-{
-
-}
-public class KeyAttribute : Attribute
-{
-    public bool Identity { get; set; }
-}
