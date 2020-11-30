@@ -9,23 +9,21 @@ namespace zxksglxtWeb.DAL
         {
             try
             {
-                var con = Sql.CreateCon();
-                con.Open();
-                var trans = con.BeginTransaction();
+                Sql.BeginTransaction();
                 try
                 {
-                    int ret = con.Edit(examResult, trans);
+                    int ret = Sql.Edit(examResult);
                     detailList.ForEach(a =>
                     {
-                        ret += con.Insert(a, trans);
+                        ret += Sql.Insert(a);
                     });
 
-                    trans.Commit();
+                    Sql.Commit();
                     return ret;
                 }
                 catch (System.Exception ex)
                 {
-                    trans.Rollback();
+                    Sql.Rollback();
                     throw ex;
                 }
             }

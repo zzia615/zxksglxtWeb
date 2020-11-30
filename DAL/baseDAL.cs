@@ -9,8 +9,10 @@ namespace zxksglxtWeb.DAL
 {
     public class baseDAL<T> where T : class, new()
     {
-        protected SqlUtil Sql = new SqlUtil();
-
+        protected SqlFactoryUtil Sql = new SqlFactoryUtil();
+        public baseDAL()
+        {
+        }
         /// <summary>
         /// 插入
         /// </summary>
@@ -46,12 +48,12 @@ namespace zxksglxtWeb.DAL
         /// <returns></returns>
         public virtual List<T> Query(string sql, Dictionary<string, object> dic = null)
         {
-            List<System.Data.IDataParameter> parameters = new List<System.Data.IDataParameter>();
+            List<System.Data.IDbDataParameter> parameters = new List<System.Data.IDbDataParameter>();
             if (dic != null && dic.Count > 0)
             {
                 foreach (var d in dic)
                 {
-                    parameters.Add(SqlUtil.CreateParameter("@" + d.Key, d.Value));
+                    parameters.Add(Sql.CreateParameter("@" + d.Key, d.Value));
                 }
             }
             if (parameters.Count <= 0)
@@ -69,7 +71,7 @@ namespace zxksglxtWeb.DAL
             try
             {
 
-                return Sql.QuerySqlDataTable("select getdate()").Rows[0][0].AsDateTime();
+                return Sql.QueryDataSet("select getdate()").Tables[0].Rows[0][0].AsDateTime();
             }
             catch
             {

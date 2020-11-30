@@ -37,6 +37,10 @@ namespace zxksglxtWeb.Utils
         /// </summary>
         public SqlFactoryUtil()
         {
+            ParameterPrefix = "@";
+            QuotePrefix = "[";
+            QuoteSuffix = "]";
+            SchemaSeparator = ".";
             ConStr = ConfigurationManager.ConnectionStrings["defaultDb"].ConnectionString;
             ProviderName = ConfigurationManager.ConnectionStrings["defaultDb"].ProviderName;
         }
@@ -46,6 +50,10 @@ namespace zxksglxtWeb.Utils
         /// <param name="configName">配置数据库连接的节点名</param>
         public SqlFactoryUtil(string configName)
         {
+            ParameterPrefix = "@";
+            QuotePrefix = "[";
+            QuoteSuffix = "]";
+            SchemaSeparator = ".";
             ConStr = ConfigurationManager.ConnectionStrings[configName].ConnectionString;
             ProviderName = ConfigurationManager.ConnectionStrings[configName].ProviderName;
         }
@@ -60,7 +68,7 @@ namespace zxksglxtWeb.Utils
         /// <summary>
         /// 提交事务
         /// </summary>
-        public void CommitTransaction()
+        public void Commit()
         {
             try
             {
@@ -75,7 +83,7 @@ namespace zxksglxtWeb.Utils
         /// <summary>
         /// 回滚事务
         /// </summary>
-        public void RollbackTransaction()
+        public void Rollback()
         {
             try
             {
@@ -146,7 +154,14 @@ namespace zxksglxtWeb.Utils
         public IDbDataParameter CreateParameter(string pName, object pVal)
         {
             var pp = System.Data.Common.DbProviderFactories.GetFactory(ProviderName).CreateParameter();
-            pp.ParameterName = ParameterPrefix + pName;
+            if (pName.Contains(ParameterPrefix))
+            {
+                pp.ParameterName = pName;
+            }
+            else
+            {
+                pp.ParameterName = ParameterPrefix + pName;
+            }
             pp.Value = pVal;
             return pp;
         }
@@ -452,7 +467,6 @@ namespace zxksglxtWeb.Utils
                 parameter.DbType = SetDbType(obj);
                 if (obj.GetType() == typeof(string))
                 {
-                    parameter.DbType = DbType.String;
                     var tmp_sla = propertyInfo.GetCustomAttributes(false).Where(a => a is StringLengthAttribute).FirstOrDefault();
                     if (tmp_sla != null)
                     {
