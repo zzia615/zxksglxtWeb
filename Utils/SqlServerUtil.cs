@@ -9,7 +9,7 @@ using System.Text;
 
 namespace zxksglxtWeb.Utils
 {
-    public class SqlUtil
+    public class SqlServerUtil
     {
         /// <summary>
         /// 创建参数
@@ -25,7 +25,7 @@ namespace zxksglxtWeb.Utils
         /// 数据库链接
         /// </summary>
         private readonly string conStr;
-        public SqlUtil()
+        public SqlServerUtil()
         {
             conStr = ConfigurationManager.ConnectionStrings["defaultDb"].ConnectionString;
         }
@@ -33,7 +33,7 @@ namespace zxksglxtWeb.Utils
         /// 构造函数
         /// </summary>
         /// <param name="conStr"></param>
-        public SqlUtil(string conStr)
+        public SqlServerUtil(string conStr)
         {
             this.conStr = conStr;
         }
@@ -381,11 +381,11 @@ namespace zxksglxtWeb.Utils
                 object obj = propertyInfo.GetValue(t, null);
                 if (obj == null)
                 {
-                    parameters.Add(SqlUtil.CreateParameter("@" + propertyInfo.Name, DBNull.Value));
+                    parameters.Add(SqlServerUtil.CreateParameter("@" + propertyInfo.Name, DBNull.Value));
                 }
                 else
                 {
-                    parameters.Add(SqlUtil.CreateParameter("@" + propertyInfo.Name, obj));
+                    parameters.Add(SqlServerUtil.CreateParameter("@" + propertyInfo.Name, obj));
                 }
                 s_where.AppendAnd(propertyInfo.Name + "=@" + propertyInfo.Name);
             }
@@ -456,11 +456,11 @@ namespace zxksglxtWeb.Utils
                 object obj = propertyInfo.GetValue(t, null);
                 if (obj == null)
                 {
-                    parameters.Add(SqlUtil.CreateParameter("@" + propertyInfo.Name, DBNull.Value));
+                    parameters.Add(SqlServerUtil.CreateParameter("@" + propertyInfo.Name, DBNull.Value));
                 }
                 else
                 {
-                    parameters.Add(SqlUtil.CreateParameter("@" + propertyInfo.Name, obj));
+                    parameters.Add(SqlServerUtil.CreateParameter("@" + propertyInfo.Name, obj));
                 }
                 s_where.AppendAnd(propertyInfo.Name + "=@" + propertyInfo.Name);
             }

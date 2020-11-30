@@ -258,7 +258,7 @@
     <Compile Include="Utils\IgnoreAttribute.cs" />
     <Compile Include="Utils\KeyAttribute.cs" />
     <Compile Include="Utils\SqlFactoryUtil.cs" />
-    <Compile Include="Utils\SqlUtil.cs" />
+    <Compile Include="Utils\SqlServerUtil.cs" />
     <Compile Include="Utils\StringLengthAttribute.cs" />
     <Compile Include="Welcome.aspx.cs">
       <DependentUpon>Welcome.aspx</DependentUpon>
