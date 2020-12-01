@@ -120,6 +120,7 @@
                 formData.data = JSON.stringify(data.field);
                 formData.action = "HandInExam";
                 formData.pid = data.field.pid;
+                formData.examDesc_id = data.field.examDesc_id;
                 $.ajax({
                     url: "/Exam/Default.aspx",
                     data: formData,

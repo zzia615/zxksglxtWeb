@@ -53,7 +53,7 @@
     <div class="layui-card" id="card3">
         <div class="layui-card-body">
             <span class="layui-breadcrumb">
-              <a href="#">首页</a>
+              <a href="#">基础数据</a>
               <a><cite>题库维护</cite></a>
             </span>
         </div>
@@ -738,7 +738,7 @@
                         if (res.code === 0) {
                             layer.closeAll();
                             layer.msg("保存成功");
-                            getTree();
+                            reloadExamTable(selectedExamDesc.id);
                         } else {
                             layer.closeAll();
                             layer.msg("保存失败，错误信息：" + res.msg);

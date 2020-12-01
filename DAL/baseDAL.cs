@@ -10,6 +10,28 @@ namespace zxksglxtWeb.DAL
     public class baseDAL<T> where T : class, new()
     {
         protected SqlFactoryUtil Sql = new SqlFactoryUtil();
+        /// <summary>
+        /// 开始事务
+        /// </summary>
+        public void BeginTransaction()
+        {
+            Sql.BeginTransaction();
+        }
+        /// <summary>
+        /// 提交
+        /// </summary>
+        public void Commit()
+        {
+            Sql.Commit();
+        }
+        /// <summary>
+        /// 回滚
+        /// </summary>
+        public void Rollback()
+        {
+            Sql.Rollback();
+        }
+
         public baseDAL()
         {
         }

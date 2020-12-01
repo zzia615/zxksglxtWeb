@@ -74,3 +74,9 @@ isCorrect int default 0 not null,			  --是否正确：1正确 0不正确
 score int default 0 not null				  --得分
 )
 go
+create view v_examStudent
+as 
+select examResult.*,userInfo.name as sname,userInfo.sfzh,userInfo.phone from examResult,userInfo 
+where examResult.scode=userInfo.code and userInfo.userType=N'学生'
+go
+

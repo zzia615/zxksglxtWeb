@@ -48,7 +48,7 @@
     <div class="layui-card" id="card3">
         <div class="layui-card-body">
             <span class="layui-breadcrumb">
-              <a href="#">首页</a>
+              <a href="#">基础数据</a>
               <a><cite>用户维护</cite></a>
             </span>
         </div>

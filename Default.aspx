@@ -43,6 +43,12 @@
       <ul class="layui-nav layui-nav-tree"  lay-filter="test">
         <li class="layui-nav-item"><a href="#" target="mainFrame">测试</a></li>
         <li class="layui-nav-item">
+          <a class="" href="javascript:;">业务管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="/Admin/ExamStudent.aspx" target="mainFrame">考试安排</a></dd>  
+          </dl>
+        </li>
+        <li class="layui-nav-item">
           <a class="" href="javascript:;">基础数据</a>
           <dl class="layui-nav-child">
             <dd><a href="/Admin/ExamDesc.aspx" target="mainFrame">题库维护</a></dd>  

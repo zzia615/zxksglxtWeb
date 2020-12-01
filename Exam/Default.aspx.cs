@@ -54,10 +54,28 @@ namespace zxksglxtWeb.Exam
                 {
                     ResponseAlert("考生已完成考试，不允许重复考试", "/Exam/Login.aspx");
                 }
-            }
-            ExamResult.kssj = DateTime.Now;
-            ExamResult.kszt = "考试中";
+                if (ExamResult.kszt == "缺考")
+                {
+                    ResponseAlert("考生已完成考试，不允许重复考试", "/Exam/Login.aspx");
+                }
+                if (ExamResult.kszt == "考试中")
+                {
+                    if (ExamResult.kssj.Value.AddMinutes(ExamDesc.costTime) < DateTime.Now)
+                    {
+                        ExamResult.jssj = DateTime.Now;
+                        ExamResult.kszt = "缺考";
+                        new BLL.examResultBLL().Edit(ExamResult);
+                        ResponseAlert("考试已结束，您的本次考试将视为缺考", "/Exam/Login.aspx");
+                    }
+                }
 
+            }
+
+            if (ExamResult.kszt == "待考")
+            {
+                ExamResult.kssj = DateTime.Now;
+                ExamResult.kszt = "考试中";
+            }
             new BLL.examResultBLL().Edit(ExamResult);
         }
 

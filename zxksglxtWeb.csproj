@@ -62,6 +62,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Admin\ExamStudent.aspx" />
     <Content Include="Admin\ExamPreview.aspx" />
     <Content Include="Admin\UserInfo.aspx" />
     <Content Include="Admin\ExamDesc.aspx" />
@@ -190,6 +191,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\ExamStudent.aspx.cs">
+      <DependentUpon>ExamStudent.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ExamStudent.aspx.designer.cs">
+      <DependentUpon>ExamStudent.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\ExamPreview.aspx.cs">
       <DependentUpon>ExamPreview.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -218,10 +226,12 @@
     <Compile Include="BLL\examBLL.cs" />
     <Compile Include="BLL\examDescriptionBLL.cs" />
     <Compile Include="BLL\examResultBLL.cs" />
+    <Compile Include="BLL\examStudentBLL.cs" />
     <Compile Include="BLL\userInfoBLL.cs" />
     <Compile Include="DAL\baseDAL.cs" />
     <Compile Include="DAL\examDAL.cs" />
     <Compile Include="DAL\examDescriptionDAL.cs" />
+    <Compile Include="DAL\examStudentDAL.cs" />
     <Compile Include="DAL\examResultDAL.cs" />
     <Compile Include="DAL\examResultDetailDAL.cs" />
     <Compile Include="DAL\useInfoDAL.cs" />
@@ -251,6 +261,7 @@
     <Compile Include="Log\LoggerType.cs" />
     <Compile Include="Models\exam.cs" />
     <Compile Include="Models\examDescription.cs" />
+    <Compile Include="Models\v_examStudent.cs" />
     <Compile Include="Models\examResult.cs" />
     <Compile Include="Models\examResultDetail.cs" />
     <Compile Include="Models\userInfo.cs" />

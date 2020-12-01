@@ -9,6 +9,27 @@ namespace zxksglxtWeb.BLL
     {
         protected DAL.baseDAL<T> BaseDAL = new DAL.baseDAL<T>();
         /// <summary>
+        /// 开始事务
+        /// </summary>
+        public void BeginTransaction()
+        {
+            BaseDAL.BeginTransaction();
+        }
+        /// <summary>
+        /// 提交
+        /// </summary>
+        public void Commit()
+        {
+            BaseDAL.Commit();
+        }
+        /// <summary>
+        /// 回滚
+        /// </summary>
+        public void Rollback()
+        {
+            BaseDAL.Rollback();
+        }
+        /// <summary>
         /// 插入数据
         /// </summary>
         /// <param name="t"></param>
